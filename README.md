@@ -25,30 +25,37 @@ ERROR: /private/var/tmp/_bazel_mennyevendanan/86fbf581dec8654f534e7d4ff3f42ae4/e
 ERROR: Analysis of target '//:scss_binary_root' failed; build aborted: Analysis failed
 ```
 
+Running the tests in the root WORKSPACE passes for all tests:
+```
+bazelisk test @r2//...
+INFO: Analyzed 6 targets (0 packages loaded, 0 targets configured).
+INFO: Found 2 targets and 4 test targets...
+INFO: Elapsed time: 0.272s, Critical Path: 0.11s
+INFO: 5 processes: 8 linux-sandbox.
+INFO: Build completed successfully, 5 total actions
+@r2//starlark:tests_lightningcss_scss_binary_test                        PASSED in 0.0s
+@r2//starlark:tests_postcss_as_default_scss_binary_test                  PASSED in 0.0s
+@r2//starlark:tests_postcss_scss_binary_test                             PASSED in 0.0s
+@r2//starlark:tests_unknown_processor_scss_binary_test                   PASSED in 0.0s
+```
+
 Running the tests in the nested WORKSPACE (`r2`) shows a failure when doing config_setting transitions:
 ```
-r2 git:(main) ✗ bazelisk test //...
-DEBUG: /Users/mennyevendanan/dev/menny/test-config-bazel-repo/r2/starlark/scss.bzl:22:10: css_processor_type: <target //starlark:css_processor_type>
-DEBUG: /Users/mennyevendanan/dev/menny/test-config-bazel-repo/r2/starlark/scss.bzl:22:10: css_processor_type: <target //starlark:css_processor_type>
-DEBUG: /Users/mennyevendanan/dev/menny/test-config-bazel-repo/r2/starlark/scss.bzl:22:10: css_processor_type: <target //starlark:css_processor_type>
-DEBUG: /Users/mennyevendanan/dev/menny/test-config-bazel-repo/r2/starlark/scss.bzl:22:10: css_processor_type: <target //starlark:css_processor_type>
-DEBUG: /Users/mennyevendanan/dev/menny/test-config-bazel-repo/r2/starlark/scss.bzl:22:10: css_processor_type: <target //starlark:css_processor_type>
-DEBUG: /private/var/tmp/_bazel_mennyevendanan/616d65f3c4e5b0f6f418367e3ebc5577/external/bazel_skylib/lib/unittest.bzl:465:10: In test _scss_binary_test_impl from //starlark:test_scss.bzl: Expected "True", but got "False"
-DEBUG: /private/var/tmp/_bazel_mennyevendanan/616d65f3c4e5b0f6f418367e3ebc5577/external/bazel_skylib/lib/unittest.bzl:465:10: In test _scss_binary_test_failure_impl from //starlark:test_scss.bzl: Expected failure of target_under_test, but found success
-INFO: Analyzed 6 targets (38 packages loaded, 181 targets configured).
-FAIL: //starlark:tests_lightningcss_scss_binary_test (see /private/var/tmp/_bazel_mennyevendanan/616d65f3c4e5b0f6f418367e3ebc5577/execroot/r2/bazel-out/darwin_arm64-fastbuild/testlogs/starlark/tests_lightningcss_scss_binary_test/test.log)
-FAIL: //starlark:tests_unknown_processor_scss_binary_test (see /private/var/tmp/_bazel_mennyevendanan/616d65f3c4e5b0f6f418367e3ebc5577/execroot/r2/bazel-out/darwin_arm64-fastbuild/testlogs/starlark/tests_unknown_processor_scss_binary_test/test.log)
+bazelisk test @r2//...
+INFO: Analyzed 6 targets (0 packages loaded, 0 targets configured).
+FAIL: //starlark:tests_lightningcss_scss_binary_test (see /home/menny/.cache/bazel/_bazel_menny/4d6896445dfb68a24aa652832a8899c3/execroot/r2/bazel-out/k8-fastbuild/testlogs/starlark/tests_lightningcss_scss_binary_test/test.log)
+FAIL: //starlark:tests_unknown_processor_scss_binary_test (see /home/menny/.cache/bazel/_bazel_menny/4d6896445dfb68a24aa652832a8899c3/execroot/r2/bazel-out/k8-fastbuild/testlogs/starlark/tests_unknown_processor_scss_binary_test/test.log)
 INFO: Found 2 targets and 4 test targets...
-INFO: Elapsed time: 1.083s, Critical Path: 0.44s
-INFO: 23 processes: 15 internal, 8 darwin-sandbox.
-INFO: Build completed, 2 tests FAILED, 23 total actions
-//starlark:tests_postcss_as_default_scss_binary_test                     PASSED in 0.2s
-//starlark:tests_postcss_scss_binary_test                                PASSED in 0.2s
-//starlark:tests_lightningcss_scss_binary_test                           FAILED in 0.3s
-  /private/var/tmp/_bazel_mennyevendanan/616d65f3c4e5b0f6f418367e3ebc5577/execroot/r2/bazel-out/darwin_arm64-fastbuild/testlogs/starlark/tests_lightningcss_scss_binary_test/test.log
-//starlark:tests_unknown_processor_scss_binary_test                      FAILED in 0.3s
-  /private/var/tmp/_bazel_mennyevendanan/616d65f3c4e5b0f6f418367e3ebc5577/execroot/r2/bazel-out/darwin_arm64-fastbuild/testlogs/starlark/tests_unknown_processor_scss_binary_test/test.log
+INFO: Elapsed time: 0.184s, Critical Path: 0.06s
+INFO: 3 processes: 4 linux-sandbox.
+INFO: Build completed, 2 tests FAILED, 3 total actions
+//starlark:tests_postcss_as_default_scss_binary_test            (cached) PASSED in 0.0s
+//starlark:tests_postcss_scss_binary_test                       (cached) PASSED in 0.0s
+//starlark:tests_lightningcss_scss_binary_test                           FAILED in 0.0s
+  /home/menny/.cache/bazel/_bazel_menny/4d6896445dfb68a24aa652832a8899c3/execroot/r2/bazel-out/k8-fastbuild/testlogs/starlark/tests_lightningcss_scss_binary_test/test.log
+//starlark:tests_unknown_processor_scss_binary_test                      FAILED in 0.0s
+  /home/menny/.cache/bazel/_bazel_menny/4d6896445dfb68a24aa652832a8899c3/execroot/r2/bazel-out/k8-fastbuild/testlogs/starlark/tests_unknown_processor_scss_binary_test/test.log
 
-Executed 4 out of 4 tests: 2 tests pass and 2 fail locally.
+Executed 2 out of 4 tests: 2 tests pass and 2 fail locally.
 There were tests whose specified size is too big. Use the --test_verbose_timeout_warnings command line option to see which ones these are.
 ```
