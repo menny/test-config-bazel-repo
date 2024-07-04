@@ -1,3 +1,5 @@
+Related to https://groups.google.com/g/bazel-discuss/c/Q7L-er6c5zY/m/l7pO25c4AQAJ
+
 The `--@r2//starlark:css_processor_type` flag control the outputs of `scss_binary`:
 
 `bazelisk build --@r2//starlark:css_processor_type=lightningcss  //...` will output:
